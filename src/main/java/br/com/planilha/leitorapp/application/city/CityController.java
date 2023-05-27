@@ -48,5 +48,5 @@ public interface CityController {
                     )
             }
     )
-    ResponseEntity<List<City>> getAllCities();
+    ResponseEntity<List<City>> getAllCities(Integer page, Integer elementsPerPage);
 }

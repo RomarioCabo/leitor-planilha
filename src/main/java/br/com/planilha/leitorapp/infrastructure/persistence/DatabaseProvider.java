@@ -5,6 +5,7 @@ import br.com.planilha.leitorapp.domain.provider.PersistenceProvider;
 import br.com.planilha.leitorapp.infrastructure.persistence.city.CityEntity;
 import br.com.planilha.leitorapp.infrastructure.persistence.city.CityRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class DatabaseProvider implements PersistenceProvider {
     }
 
     @Override
-    public List<City> getAllCities() {
-        return cityRepository.findAllByName().stream().map(CityEntity::toCity).toList();
+    public List<City> getAllCities(Pageable pageable) {
+        return cityRepository.findAllByName(pageable).stream().map(CityEntity::toCity).toList();
     }
 }

@@ -37,8 +37,9 @@ public class CityControllerImpl implements CityController {
 
     @Override
     @GetMapping(value = "listar", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<City>> getAllCities() {
+    public ResponseEntity<List<City>> getAllCities(@RequestParam(value = "page") Integer page,
+                                                   @RequestParam(value = "elementsPerPage") Integer elementsPerPage) {
         log.info("Requisição Rest: listar recebida");
-        return ResponseEntity.ok(cityService.getAll());
+        return ResponseEntity.ok(cityService.getAll(page, elementsPerPage));
     }
 }

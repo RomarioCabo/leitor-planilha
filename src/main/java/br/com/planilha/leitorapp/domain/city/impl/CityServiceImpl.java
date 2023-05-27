@@ -5,9 +5,12 @@ import br.com.planilha.leitorapp.domain.city.CityService;
 import br.com.planilha.leitorapp.domain.city.exception.CityException;
 import br.com.planilha.leitorapp.domain.provider.PersistenceProvider;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static org.springframework.data.domain.Sort.Direction.ASC;
 
 @Service
 @AllArgsConstructor
@@ -25,7 +28,8 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<City> getAll() {
-        return provider.getAllCities();
+    public List<City> getAll(Integer page, Integer elementsPerPage) {
+        PageRequest pageRequest = PageRequest.of(page, elementsPerPage, ASC, "name");
+        return provider.getAllCities(pageRequest);
     }
 }

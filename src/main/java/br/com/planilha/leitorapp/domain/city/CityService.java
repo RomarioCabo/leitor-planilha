@@ -6,5 +6,5 @@ public interface CityService {
 
     List<City> saveAll(List<City> cities);
 
-    List<City> getAll();
+    List<City> getAll(Integer page, Integer elementsPerPage);
 }
