@@ -10,7 +10,7 @@ public interface PersistenceProvider {
 
     CityResponse saveCity(Long id, CityRequest cityRequest);
 
-    List<CityResponse> saveAllCities(List<CityResponse> cities);
+    void saveAllCities(List<CityResponse> cities);
 
     List<CityResponse> getAllCities(Pageable pageable);
 

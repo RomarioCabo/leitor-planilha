@@ -18,6 +18,7 @@ public class CityEntity {
 
     @Id
     @GeneratedValue(strategy = SEQUENCE)
+    @Column(name = "id_cidade")
     private Long id;
 
     @Column(name = "id_cidade_planilha", nullable = false)

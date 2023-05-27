@@ -62,9 +62,7 @@ public interface CityController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "OK",
-                            content = @Content(
-                                    array = @ArraySchema(schema = @Schema(implementation = CityResponse.class))
-                            )
+                            content = {@Content(schema = @Schema())}
                     ),
                     @ApiResponse(
                             responseCode = "500",
@@ -73,7 +71,7 @@ public interface CityController {
                     )
             }
     )
-    ResponseEntity<List<CityResponse>> saveAll(MultipartFile spreadsheet);
+    ResponseEntity<Void> saveAll(MultipartFile spreadsheet);
 
     @ApiResponses(
             value = {

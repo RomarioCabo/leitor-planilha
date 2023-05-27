@@ -6,7 +6,7 @@ public interface CityService {
 
     CityResponse upsert(Long id, CityRequest cityRequest);
 
-    List<CityResponse> saveAll(List<CityResponse> cities);
+    void saveAll(List<CityResponse> cities);
 
     void delete(Long id);
 

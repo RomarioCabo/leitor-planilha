@@ -1,4 +1,4 @@
-CREATE TABLE cidade
+CREATE TABLE cidades
 (
     id_cidade          SERIAL,
     id_cidade_planilha INT          NOT NULL,

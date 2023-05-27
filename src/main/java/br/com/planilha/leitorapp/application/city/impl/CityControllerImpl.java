@@ -45,13 +45,13 @@ public class CityControllerImpl implements CityController {
 
     @Override
     @PostMapping(value = "upload", consumes = MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<List<CityResponse>> saveAll(@RequestParam("spreadsheet") MultipartFile spreadsheet) {
+    public ResponseEntity<Void> saveAll(@RequestParam("spreadsheet") MultipartFile spreadsheet) {
         log.info("Requisição Rest: upload recebida");
         List<CityResponse> cities = spreadsheetService.converter(spreadsheet);
         log.info("Inserindo cidades");
-        cities = cityService.saveAll(cities);
+        cityService.saveAll(cities);
         log.info("Cidades inseridas com sucesso!");
-        return ResponseEntity.ok(cities);
+        return ResponseEntity.ok().build();
     }
 
     @Override
@@ -70,7 +70,7 @@ public class CityControllerImpl implements CityController {
         return ResponseEntity.ok(cityService.getAll(page, elementsPerPage));
     }
 
-    private static URI getUri() {
+    private URI getUri() {
         return UriComponentsBuilder.fromPath("/api/v1/listar")
                 .queryParam("page", "0")
                 .queryParam("elementsPerPage", "10")

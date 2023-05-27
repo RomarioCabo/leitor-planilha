@@ -33,10 +33,11 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<CityResponse> saveAll(List<CityResponse> cities) {
+    public void saveAll(List<CityResponse> cities) {
         try {
-            return provider.saveAllCities(cities);
+            provider.saveAllCities(cities);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new CityException();
         }
     }
