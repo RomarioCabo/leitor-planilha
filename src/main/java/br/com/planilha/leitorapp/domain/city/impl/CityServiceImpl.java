@@ -7,6 +7,7 @@ import br.com.planilha.leitorapp.domain.city.exception.CityException;
 import br.com.planilha.leitorapp.domain.city.exception.CityNotFoundException;
 import br.com.planilha.leitorapp.domain.provider.PersistenceProvider;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,7 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
+    @Cacheable(value = "cities", key = "{#page, #elementsPerPage}", cacheManager = "getCitiesCacheManager")
     public List<CityResponse> getAll(Integer page, Integer elementsPerPage) {
         PageRequest pageRequest = PageRequest.of(page, elementsPerPage, ASC, "name");
         return provider.getAllCities(pageRequest);

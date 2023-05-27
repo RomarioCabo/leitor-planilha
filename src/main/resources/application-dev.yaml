@@ -6,9 +6,6 @@ spring:
       username: leitor_planilha_user
       password: leitor_planilha_password
       connection-test-query: SELECT 1
-    redis:
-      hostname: localhost
-      port: 6379
   flyway:
     enabled: true
     locations: classpath:db/migration
@@ -16,6 +13,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 logging:
   level:
