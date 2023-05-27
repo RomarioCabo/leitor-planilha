@@ -19,7 +19,9 @@ public interface CityController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "OK",
-                            content = {@Content(schema = @Schema(implementation = City[].class))}
+                            content = @Content(
+                                    array = @ArraySchema(schema = @Schema(implementation = City.class))
+                            )
                     ),
                     @ApiResponse(
                             responseCode = "400",
