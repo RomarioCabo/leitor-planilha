@@ -23,4 +23,9 @@ public class CityServiceImpl implements CityService {
             throw new CityException();
         }
     }
+
+    @Override
+    public List<City> getAll() {
+        return provider.getAllCities();
+    }
 }

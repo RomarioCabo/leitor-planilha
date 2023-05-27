@@ -7,4 +7,6 @@ import java.util.List;
 public interface PersistenceProvider {
 
     List<City> saveAllCities(List<City> cities);
+
+    List<City> getAllCities();
 }

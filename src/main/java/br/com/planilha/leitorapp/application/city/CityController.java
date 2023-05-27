@@ -2,6 +2,7 @@ package br.com.planilha.leitorapp.application.city;
 
 import br.com.planilha.leitorapp.application.exception.ApiError;
 import br.com.planilha.leitorapp.domain.city.City;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -33,4 +34,17 @@ public interface CityController {
             }
     )
     ResponseEntity<List<City>> saveCities(MultipartFile spreadsheet);
+
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "OK",
+                            content = @Content(
+                                    array = @ArraySchema(schema = @Schema(implementation = City.class))
+                            )
+                    )
+            }
+    )
+    ResponseEntity<List<City>> getAllCities();
 }

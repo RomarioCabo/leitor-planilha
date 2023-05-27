@@ -20,4 +20,9 @@ public class DatabaseProvider implements PersistenceProvider {
         List<CityEntity> citiesEntity = cityRepository.saveAll(cities.stream().map(City::toEntity).toList());
         return citiesEntity.stream().map(CityEntity::toCity).toList();
     }
+
+    @Override
+    public List<City> getAllCities() {
+        return cityRepository.findAllByName().stream().map(CityEntity::toCity).toList();
+    }
 }
