@@ -1,6 +1,6 @@
 package br.com.planilha.leitorapp.domain.spreadsheet.impl;
 
-import br.com.planilha.leitorapp.domain.city.City;
+import br.com.planilha.leitorapp.domain.city.CityResponse;
 import br.com.planilha.leitorapp.domain.spreadsheet.SpreadsheetService;
 import br.com.planilha.leitorapp.domain.spreadsheet.exception.SpreadsheetException;
 import lombok.extern.slf4j.Slf4j;
@@ -19,13 +19,13 @@ import java.util.List;
 public class SpreadsheetServiceImpl implements SpreadsheetService {
 
     @Override
-    public List<City> converter(MultipartFile spreadsheet) {
+    public List<CityResponse> converter(MultipartFile spreadsheet) {
         try (InputStream inputStream = spreadsheet.getInputStream();
              Workbook workbook = new XSSFWorkbook(inputStream)) {
 
             Sheet sheet = workbook.getSheetAt(0);
 
-            List<City> cities = new ArrayList<>();
+            List<CityResponse> cities = new ArrayList<>();
 
             for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
                 Row row = sheet.getRow(rowIndex);
@@ -68,8 +68,8 @@ public class SpreadsheetServiceImpl implements SpreadsheetService {
         };
     }
 
-    private City buildCity(Long idCityWorksheet, String name, String shortName, String latitude, String longitude) {
-        City city = City.builder()
+    private CityResponse buildCity(Long idCityWorksheet, String name, String shortName, String latitude, String longitude) {
+        CityResponse cityResponse = CityResponse.builder()
                 .idCityWorksheet(idCityWorksheet)
                 .name(name)
                 .shortName(shortName)
@@ -77,8 +77,8 @@ public class SpreadsheetServiceImpl implements SpreadsheetService {
                 .longitude(longitude)
                 .build();
 
-        log.info("Cidade: {}", city);
+        log.info("Cidade: {}", cityResponse);
 
-        return city;
+        return cityResponse;
     }
 }

@@ -4,7 +4,11 @@ import java.util.List;
 
 public interface CityService {
 
-    List<City> saveAll(List<City> cities);
+    CityResponse upsert(Long id, CityRequest cityRequest);
 
-    List<City> getAll(Integer page, Integer elementsPerPage);
+    List<CityResponse> saveAll(List<CityResponse> cities);
+
+    void delete(Long id);
+
+    List<CityResponse> getAll(Integer page, Integer elementsPerPage);
 }

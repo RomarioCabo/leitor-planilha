@@ -1,6 +1,6 @@
 package br.com.planilha.leitorapp.infrastructure.persistence.city;
 
-import br.com.planilha.leitorapp.domain.city.City;
+import br.com.planilha.leitorapp.domain.city.CityResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,8 +35,8 @@ public class CityEntity {
     @Column(name = "longitude", nullable = false)
     private String longitude;
 
-    public City toCity() {
-        return City.builder()
+    public CityResponse toCity() {
+        return CityResponse.builder()
                 .id(this.getId())
                 .idCityWorksheet(this.getIdCityWorksheet())
                 .name(this.getName())

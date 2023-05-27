@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class City {
+public class CityResponse {
 
     private Long id;
     private Long idCityWorksheet;
