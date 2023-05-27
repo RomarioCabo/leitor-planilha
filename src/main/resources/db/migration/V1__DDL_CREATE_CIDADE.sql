@@ -1,6 +1,6 @@
 CREATE TABLE cidade
 (
-    id_cidade          SERIAL       NOT NULL,
+    id_cidade          SERIAL,
     id_cidade_planilha INT          NOT NULL,
     nome               VARCHAR(255) NOT NULL,
     nome_abreviado     VARCHAR(255) NOT NULL,

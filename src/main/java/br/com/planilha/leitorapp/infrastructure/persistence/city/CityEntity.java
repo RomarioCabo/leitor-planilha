@@ -1,14 +1,15 @@
 package br.com.planilha.leitorapp.infrastructure.persistence.city;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import br.com.planilha.leitorapp.domain.city.City;
+import jakarta.persistence.*;
 import lombok.*;
+
+import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,6 +17,7 @@ import lombok.*;
 public class CityEntity {
 
     @Id
+    @GeneratedValue(strategy = SEQUENCE)
     private Long id;
 
     @Column(name = "id_cidade_planilha", nullable = false)
@@ -32,4 +34,15 @@ public class CityEntity {
 
     @Column(name = "longitude", nullable = false)
     private String longitude;
+
+    public City toCity() {
+        return City.builder()
+                .id(this.getId())
+                .idCityWorksheet(this.getIdCityWorksheet())
+                .name(this.getName())
+                .shortName(this.getShortName())
+                .latitude(this.getLatitude())
+                .longitude(this.getLongitude())
+                .build();
+    }
 }

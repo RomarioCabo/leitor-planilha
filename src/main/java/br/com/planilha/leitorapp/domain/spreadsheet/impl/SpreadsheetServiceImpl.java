@@ -49,6 +49,7 @@ public class SpreadsheetServiceImpl implements SpreadsheetService {
                 }
             }
 
+            log.info("Conversão da planilha para Objeto com sucesso. Total {}", cities.size());
             return cities;
         } catch (IOException e) {
             throw new SpreadsheetException();
