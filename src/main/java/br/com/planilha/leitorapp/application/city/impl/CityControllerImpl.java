@@ -5,6 +5,7 @@ import br.com.planilha.leitorapp.domain.city.CityRequest;
 import br.com.planilha.leitorapp.domain.city.CityResponse;
 import br.com.planilha.leitorapp.domain.city.CityService;
 import br.com.planilha.leitorapp.domain.spreadsheet.SpreadsheetService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class CityControllerImpl implements CityController {
 
     @Override
     @PostMapping(value = "salvar", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<CityResponse> save(@RequestBody CityRequest cityRequest) {
+    public ResponseEntity<CityResponse> save(@Valid @RequestBody CityRequest cityRequest) {
         log.info("Requisição Rest: salvar recebida");
         CityResponse cityResponse = cityService.upsert(null, cityRequest);
         return ResponseEntity.created(getUri()).body(cityResponse);
@@ -37,7 +38,7 @@ public class CityControllerImpl implements CityController {
 
     @Override
     @PutMapping(value = "alterar/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<CityResponse> update(@PathVariable Long id, @RequestBody CityRequest cityRequest) {
+    public ResponseEntity<CityResponse> update(@PathVariable Long id, @Valid @RequestBody CityRequest cityRequest) {
         log.info("Requisição Rest: alterar/{}", id);
         CityResponse cityResponse = cityService.upsert(id, cityRequest);
         return ResponseEntity.ok(cityResponse);

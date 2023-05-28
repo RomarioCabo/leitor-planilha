@@ -1,6 +1,8 @@
 package br.com.planilha.leitorapp.domain.city;
 
 import br.com.planilha.leitorapp.infrastructure.persistence.city.CityEntity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -11,10 +13,23 @@ import lombok.*;
 @ToString
 public class CityRequest {
 
+    @NotNull
     private Long idCityWorksheet;
+
+    @NotNull
+    @NotBlank
     private String name;
+
+    @NotNull
+    @NotBlank
     private String shortName;
+
+    @NotNull
+    @NotBlank
     private String latitude;
+
+    @NotNull
+    @NotBlank
     private String longitude;
 
     public CityEntity toEntity(Long id) {
