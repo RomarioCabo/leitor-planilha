@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -56,22 +55,6 @@ public interface CityController {
             }
     )
     ResponseEntity<CityResponse> update(Long id, CityRequest cityRequest);
-
-    @ApiResponses(
-            value = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "OK",
-                            content = {@Content(schema = @Schema())}
-                    ),
-                    @ApiResponse(
-                            responseCode = "500",
-                            description = "INTERNAL_SERVER_ERROR",
-                            content = {@Content(schema = @Schema(implementation = ApiError.class))}
-                    )
-            }
-    )
-    ResponseEntity<Void> saveAll(MultipartFile spreadsheet);
 
     @ApiResponses(
             value = {
