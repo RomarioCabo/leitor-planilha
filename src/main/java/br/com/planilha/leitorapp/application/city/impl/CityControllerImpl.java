@@ -1,6 +1,7 @@
 package br.com.planilha.leitorapp.application.city.impl;
 
 import br.com.planilha.leitorapp.application.city.CityController;
+import br.com.planilha.leitorapp.application.uri.Uri;
 import br.com.planilha.leitorapp.domain.city.CityRequest;
 import br.com.planilha.leitorapp.domain.city.CityResponse;
 import br.com.planilha.leitorapp.domain.city.CityService;
@@ -9,9 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -20,7 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("api/v1/cidades/")
 @AllArgsConstructor
-public class CityControllerImpl implements CityController {
+public class CityControllerImpl extends Uri implements CityController {
 
     private final CityService cityService;
 
@@ -29,7 +28,7 @@ public class CityControllerImpl implements CityController {
     public ResponseEntity<CityResponse> save(@Valid @RequestBody CityRequest cityRequest) {
         log.info("Requisição Rest: salvar recebida");
         CityResponse cityResponse = cityService.upsert(null, cityRequest);
-        return ResponseEntity.created(getUri()).body(cityResponse);
+        return ResponseEntity.created(generate("/api/v1/cidades/listar", 0, 10)).body(cityResponse);
     }
 
     @Override
@@ -54,13 +53,5 @@ public class CityControllerImpl implements CityController {
                                                      @RequestParam(value = "elementsPerPage") Integer elementsPerPage) {
         log.info("Requisição Rest: listar recebida");
         return ResponseEntity.ok(cityService.getAll(page, elementsPerPage));
-    }
-
-    private URI getUri() {
-        return UriComponentsBuilder.fromPath("/api/v1/listar")
-                .queryParam("page", "0")
-                .queryParam("elementsPerPage", "10")
-                .build()
-                .toUri();
     }
 }

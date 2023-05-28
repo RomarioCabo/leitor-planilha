@@ -2,13 +2,33 @@ package br.com.planilha.leitorapp.domain.provider;
 
 import br.com.planilha.leitorapp.domain.city.CityRequest;
 import br.com.planilha.leitorapp.domain.city.CityResponse;
+import br.com.planilha.leitorapp.domain.region.RegionRequest;
+import br.com.planilha.leitorapp.domain.region.RegionResponse;
+import br.com.planilha.leitorapp.domain.state.StateRequest;
+import br.com.planilha.leitorapp.domain.state.StateResponse;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface PersistenceProvider {
 
-    CityResponse saveCity(Long id, CityRequest cityRequest);
+    RegionResponse upsertRegion(Long id, RegionRequest regionRequest);
+
+    List<RegionResponse> getAllRegions();
+
+    boolean existsRegionById(Long id);
+
+    void deleteRegionById(Long id);
+
+    StateResponse upsertState(Long id, StateRequest stateRequest);
+
+    List<StateResponse> getAllStates();
+
+    boolean existsStateById(Long id);
+
+    void deleteStateById(Long id);
+
+    CityResponse upsertCity(Long id, CityRequest cityRequest);
 
     void saveAllCities(List<CityResponse> cities);
 
@@ -16,5 +36,5 @@ public interface PersistenceProvider {
 
     boolean existsCityById(Long id);
 
-    void delete(Long id);
+    void deleteCityById(Long id);
 }

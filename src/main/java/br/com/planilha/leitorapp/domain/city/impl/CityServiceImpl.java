@@ -5,6 +5,7 @@ import br.com.planilha.leitorapp.domain.city.CityResponse;
 import br.com.planilha.leitorapp.domain.city.CityService;
 import br.com.planilha.leitorapp.domain.city.exception.CityException;
 import br.com.planilha.leitorapp.domain.city.exception.CityNotFoundException;
+import br.com.planilha.leitorapp.domain.log.LogMessage;
 import br.com.planilha.leitorapp.domain.provider.PersistenceProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +20,7 @@ import static org.springframework.data.domain.Sort.Direction.ASC;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class CityServiceImpl implements CityService {
-
-    private static final String ERROR_MESSAGE = "Error: %s";
+public class CityServiceImpl extends LogMessage implements CityService  {
 
     private final PersistenceProvider provider;
 
@@ -30,7 +29,7 @@ public class CityServiceImpl implements CityService {
         existsId(id);
 
         try {
-            return provider.saveCity(id, cityRequest);
+            return provider.upsertCity(id, cityRequest);
         } catch (Exception e) {
             logMessageError(e);
             throw new CityException();
@@ -52,7 +51,7 @@ public class CityServiceImpl implements CityService {
         existsId(id);
 
         try {
-            provider.delete(id);
+            provider.deleteCityById(id);
         } catch (Exception e) {
             logMessageError(e);
             throw new CityException();
@@ -84,9 +83,5 @@ public class CityServiceImpl implements CityService {
         if (id != null && !exists) {
             throw new CityNotFoundException(id);
         }
-    }
-
-    private void logMessageError(Exception e) {
-        log.info(String.format(ERROR_MESSAGE, e.getMessage()), e);
     }
 }

@@ -36,7 +36,7 @@ public class CityEntity {
     @Column(name = "longitude", nullable = false)
     private String longitude;
 
-    public CityResponse toCity() {
+    public CityResponse toModel() {
         return CityResponse.builder()
                 .id(this.getId())
                 .idCityWorksheet(this.getIdCityWorksheet())

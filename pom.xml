@@ -102,9 +102,9 @@
 
         <!-- hibernate -->
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.1.7.Final</version>
+            <version>6.2.3.Final</version>
         </dependency>
 
         <dependency>
@@ -149,9 +149,9 @@
         </dependency>
 
         <dependency>
-            <artifactId>postgresql</artifactId>
             <groupId>org.postgresql</groupId>
-            <scope>runtime</scope>
+            <artifactId>postgresql</artifactId>
+            <version>42.6.0</version>
         </dependency>
 
         <dependency>

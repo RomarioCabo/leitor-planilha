@@ -61,6 +61,18 @@ public class RedisConfig implements CachingConfigurer {
         return buildRedisCacheManager(jedisConnectionFactory, cacheTtl);
     }
 
+    @Bean
+    public RedisCacheManager getRegionsCacheManager(JedisConnectionFactory jedisConnectionFactory, @Value("${cache.ttl_seconds.getRegions}") int cacheTtl) {
+
+        return buildRedisCacheManager(jedisConnectionFactory, cacheTtl);
+    }
+
+    @Bean
+    public RedisCacheManager getStatesCacheManager(JedisConnectionFactory jedisConnectionFactory, @Value("${cache.ttl_seconds.getStates}") int cacheTtl) {
+
+        return buildRedisCacheManager(jedisConnectionFactory, cacheTtl);
+    }
+
     private RedisCacheManager buildRedisCacheManager(JedisConnectionFactory jedisConnectionFactory, int cacheTtl) {
         var serializer = new GenericJackson2JsonRedisSerializer(customObjectMapper());
 
