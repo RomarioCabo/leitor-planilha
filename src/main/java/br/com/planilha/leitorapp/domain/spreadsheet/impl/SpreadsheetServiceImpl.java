@@ -3,6 +3,7 @@ package br.com.planilha.leitorapp.domain.spreadsheet.impl;
 import br.com.planilha.leitorapp.domain.city.CityResponse;
 import br.com.planilha.leitorapp.domain.spreadsheet.SpreadsheetService;
 import br.com.planilha.leitorapp.domain.spreadsheet.exception.SpreadsheetException;
+import br.com.planilha.leitorapp.domain.spreadsheet.exception.SpreadsheetFormatInvalidException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -20,6 +21,8 @@ public class SpreadsheetServiceImpl implements SpreadsheetService {
 
     @Override
     public List<CityResponse> converter(MultipartFile spreadsheet) {
+        validateFormatSpreadsheet(spreadsheet);
+
         try (InputStream inputStream = spreadsheet.getInputStream();
              Workbook workbook = new XSSFWorkbook(inputStream)) {
 
@@ -53,6 +56,13 @@ public class SpreadsheetServiceImpl implements SpreadsheetService {
             return cities;
         } catch (IOException e) {
             throw new SpreadsheetException();
+        }
+    }
+
+    private void validateFormatSpreadsheet(MultipartFile spreadsheet) {
+        String filename = spreadsheet.getOriginalFilename();
+        if (filename != null && !filename.endsWith(".xlsx")) {
+            throw new SpreadsheetFormatInvalidException();
         }
     }
 
