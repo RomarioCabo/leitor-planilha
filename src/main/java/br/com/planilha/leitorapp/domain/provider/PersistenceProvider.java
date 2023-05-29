@@ -6,11 +6,14 @@ import br.com.planilha.leitorapp.domain.region.RegionRequest;
 import br.com.planilha.leitorapp.domain.region.RegionResponse;
 import br.com.planilha.leitorapp.domain.state.StateRequest;
 import br.com.planilha.leitorapp.domain.state.StateResponse;
+import br.com.planilha.leitorapp.domain.state.json.EstadoResponse;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface PersistenceProvider {
+
+    void saveAllRegions(List<EstadoResponse> estadoResponses);
 
     RegionResponse upsertRegion(Long id, RegionRequest regionRequest);
 
@@ -19,6 +22,8 @@ public interface PersistenceProvider {
     boolean existsRegionById(Long id);
 
     void deleteRegionById(Long id);
+
+    void saveAllStates(List<EstadoResponse> estadoResponses);
 
     StateResponse upsertState(Long id, StateRequest stateRequest);
 

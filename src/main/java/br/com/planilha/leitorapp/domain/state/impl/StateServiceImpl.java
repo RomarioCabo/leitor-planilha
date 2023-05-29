@@ -1,12 +1,14 @@
 package br.com.planilha.leitorapp.domain.state.impl;
 
 import br.com.planilha.leitorapp.domain.log.LogMessage;
+import br.com.planilha.leitorapp.domain.provider.FeignProvider;
 import br.com.planilha.leitorapp.domain.provider.PersistenceProvider;
 import br.com.planilha.leitorapp.domain.state.StateRequest;
 import br.com.planilha.leitorapp.domain.state.StateResponse;
 import br.com.planilha.leitorapp.domain.state.StateService;
 import br.com.planilha.leitorapp.domain.state.exception.StateException;
 import br.com.planilha.leitorapp.domain.state.exception.StateNotFoundException;
+import br.com.planilha.leitorapp.domain.state.json.EstadoResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,6 +22,18 @@ import java.util.List;
 public class StateServiceImpl extends LogMessage implements StateService {
 
     private final PersistenceProvider provider;
+    private final FeignProvider feignProvider;
+
+    @Override
+    public void saveAll() {
+        try {
+            List<EstadoResponse> estadoResponses = feignProvider.getEstados();
+            provider.saveAllStates(estadoResponses);
+        } catch (Exception e) {
+            logMessageError(e);
+            throw new StateException();
+        }
+    }
 
     @Override
     public StateResponse upsert(Long id, StateRequest stateRequest) {

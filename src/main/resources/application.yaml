@@ -18,6 +18,14 @@ spring:
     pathmatch:
       matching-strategy: ant-path-matcher
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 15000
+        readTimeout: 15000
+        loggerLevel: BASIC # NONE, BASIC, HEADERS, FULL
+
 server.shutdown: graceful
 spring.lifecycle.timeout-per-shutdown-phase: 30s
 
@@ -26,3 +34,6 @@ cache:
     getCities: 1800 # 30 minutos
     getRegions: 1800 # 30 minutos
     getStates: 1800 # 30 minutos
+
+ibge:
+  url: https://servicodados.ibge.gov.br

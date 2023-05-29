@@ -7,6 +7,7 @@ import br.com.planilha.leitorapp.domain.region.RegionRequest;
 import br.com.planilha.leitorapp.domain.region.RegionResponse;
 import br.com.planilha.leitorapp.domain.state.StateRequest;
 import br.com.planilha.leitorapp.domain.state.StateResponse;
+import br.com.planilha.leitorapp.domain.state.json.EstadoResponse;
 import br.com.planilha.leitorapp.infrastructure.persistence.city.CityEntity;
 import br.com.planilha.leitorapp.infrastructure.persistence.city.CityRepository;
 import br.com.planilha.leitorapp.infrastructure.persistence.region.RegionEntity;
@@ -34,6 +35,11 @@ public class DatabaseProvider implements PersistenceProvider {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
+    public void saveAllRegions(List<EstadoResponse> estadoResponses) {
+        regionRepository.saveAllAndFlush(estadoResponses.stream().map(EstadoResponse::toRegionEntity).toList());
+    }
+
+    @Override
     public RegionResponse upsertRegion(Long id, RegionRequest regionRequest) {
         RegionEntity regionEntity = regionRepository.saveAndFlush(regionRequest.toEntity(id));
         return regionEntity.toModel();
@@ -52,6 +58,11 @@ public class DatabaseProvider implements PersistenceProvider {
     @Override
     public void deleteRegionById(Long id) {
         cityRepository.deleteById(id);
+    }
+
+    @Override
+    public void saveAllStates(List<EstadoResponse> estadoResponses) {
+        stateRepository.saveAllAndFlush(estadoResponses.stream().map(EstadoResponse::toStateEntity).toList());
     }
 
     @Override

@@ -24,6 +24,14 @@ public class StateControllerImpl extends Uri implements StateController {
     private final StateService stateService;
 
     @Override
+    @PostMapping(value = "salvar-varios")
+    public ResponseEntity<Void> saveAll() {
+        log.info("Requisição Rest: salvar várias recebida");
+        stateService.saveAll();
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
     @PostMapping(value = "salvar", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<StateResponse> save(@Valid @RequestBody StateRequest regionRequest) {
         log.info("Requisição Rest: salvar recebida");

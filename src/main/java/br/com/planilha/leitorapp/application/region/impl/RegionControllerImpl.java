@@ -24,6 +24,14 @@ public class RegionControllerImpl extends Uri implements RegionController {
     private final RegionService regionService;
 
     @Override
+    @PostMapping(value = "salvar-varias")
+    public ResponseEntity<Void> saveAll() {
+        log.info("Requisição Rest: salvar várias recebida");
+        regionService.saveAll();
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
     @PostMapping(value = "salvar", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<RegionResponse> save(@Valid @RequestBody RegionRequest regionRequest) {
         log.info("Requisição Rest: salvar recebida");

@@ -13,6 +13,22 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface StateController {
+
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "OK",
+                            content = {@Content(schema = @Schema())}
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "INTERNAL_SERVER_ERROR",
+                            content = {@Content(schema = @Schema(implementation = ApiError.class))}
+                    ),
+            }
+    )
+    ResponseEntity<Void> saveAll();
     
     @ApiResponses(
             value = {

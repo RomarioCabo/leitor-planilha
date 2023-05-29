@@ -1,12 +1,14 @@
 package br.com.planilha.leitorapp.domain.region.impl;
 
 import br.com.planilha.leitorapp.domain.log.LogMessage;
+import br.com.planilha.leitorapp.domain.provider.FeignProvider;
 import br.com.planilha.leitorapp.domain.provider.PersistenceProvider;
 import br.com.planilha.leitorapp.domain.region.RegionRequest;
 import br.com.planilha.leitorapp.domain.region.RegionResponse;
 import br.com.planilha.leitorapp.domain.region.RegionService;
 import br.com.planilha.leitorapp.domain.region.exception.RegionException;
 import br.com.planilha.leitorapp.domain.region.exception.RegionNotFoundException;
+import br.com.planilha.leitorapp.domain.state.json.EstadoResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -19,14 +21,26 @@ import java.util.List;
 @AllArgsConstructor
 public class RegionServiceImpl extends LogMessage implements RegionService {
 
-    private final PersistenceProvider provider;
+    private final PersistenceProvider persistenceProvider;
+    private final FeignProvider feignProvider;
+
+    @Override
+    public void saveAll() {
+        try {
+            List<EstadoResponse> estadoResponses = feignProvider.getEstados();
+            persistenceProvider.saveAllRegions(estadoResponses);
+        } catch (Exception e) {
+            logMessageError(e);
+            throw new RegionException();
+        }
+    }
 
     @Override
     public RegionResponse upsert(Long id, RegionRequest regionRequest) {
         existsId(id);
 
         try {
-            return provider.upsertRegion(id, regionRequest);
+            return persistenceProvider.upsertRegion(id, regionRequest);
         } catch (Exception e) {
             logMessageError(e);
             throw new RegionException();
@@ -38,7 +52,7 @@ public class RegionServiceImpl extends LogMessage implements RegionService {
         existsId(id);
 
         try {
-            provider.deleteRegionById(id);
+            persistenceProvider.deleteRegionById(id);
         } catch (Exception e) {
             logMessageError(e);
             throw new RegionException();
@@ -49,7 +63,7 @@ public class RegionServiceImpl extends LogMessage implements RegionService {
     @Cacheable(value = "regions", cacheManager = "getRegionsCacheManager")
     public List<RegionResponse> getAll() {
         try {
-            return provider.getAllRegions();
+            return persistenceProvider.getAllRegions();
         } catch (Exception e) {
             logMessageError(e);
             throw new RegionException();
@@ -60,7 +74,7 @@ public class RegionServiceImpl extends LogMessage implements RegionService {
         boolean exists;
 
         try {
-            exists = provider.existsRegionById(id);
+            exists = persistenceProvider.existsRegionById(id);
         } catch (Exception e) {
             logMessageError(e);
             throw new RegionException();
