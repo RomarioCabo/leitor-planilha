@@ -2,6 +2,7 @@ package br.com.planilha.leitorapp.application.exception;
 
 import br.com.planilha.leitorapp.domain.city.exception.CityException;
 import br.com.planilha.leitorapp.domain.city.exception.CityNotFoundException;
+import br.com.planilha.leitorapp.domain.district.exception.DistrictException;
 import br.com.planilha.leitorapp.domain.region.exception.RegionException;
 import br.com.planilha.leitorapp.domain.region.exception.RegionNotFoundException;
 import br.com.planilha.leitorapp.domain.spreadsheet.exception.SpreadsheetException;
@@ -29,7 +30,7 @@ public class RestExceptionHandler {
 
     private final MessageSource messageSource;
 
-    @ExceptionHandler({SpreadsheetException.class, CityException.class, RegionException.class})
+    @ExceptionHandler({SpreadsheetException.class, CityException.class, RegionException.class, DistrictException.class})
     public ResponseEntity<Object> handleInternalServerErrorException(Exception ex) {
         return new ResponseEntity<>(new ApiError(INTERNAL_SERVER_ERROR, List.of(ex.getMessage())), INTERNAL_SERVER_ERROR);
     }

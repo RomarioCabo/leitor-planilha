@@ -2,14 +2,16 @@ package br.com.planilha.leitorapp.infrastructure.persistence;
 
 import br.com.planilha.leitorapp.domain.city.CityRequest;
 import br.com.planilha.leitorapp.domain.city.CityResponse;
+import br.com.planilha.leitorapp.domain.client.distrito.DistritoResponse;
 import br.com.planilha.leitorapp.domain.provider.PersistenceProvider;
 import br.com.planilha.leitorapp.domain.region.RegionRequest;
 import br.com.planilha.leitorapp.domain.region.RegionResponse;
 import br.com.planilha.leitorapp.domain.state.StateRequest;
 import br.com.planilha.leitorapp.domain.state.StateResponse;
-import br.com.planilha.leitorapp.domain.state.json.EstadoResponse;
+import br.com.planilha.leitorapp.domain.client.estado.EstadoResponse;
 import br.com.planilha.leitorapp.infrastructure.persistence.city.CityEntity;
 import br.com.planilha.leitorapp.infrastructure.persistence.city.CityRepository;
+import br.com.planilha.leitorapp.infrastructure.persistence.district.DistrictRepository;
 import br.com.planilha.leitorapp.infrastructure.persistence.region.RegionEntity;
 import br.com.planilha.leitorapp.infrastructure.persistence.region.RegionRepository;
 import br.com.planilha.leitorapp.infrastructure.persistence.state.StateEntity;
@@ -31,6 +33,7 @@ public class DatabaseProvider implements PersistenceProvider {
     private final RegionRepository regionRepository;
     private final StateRepository stateRepository;
     private final CityRepository cityRepository;
+    private final DistrictRepository districtRepository;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -126,5 +129,10 @@ public class DatabaseProvider implements PersistenceProvider {
     @Override
     public void deleteCityById(Long id) {
         cityRepository.deleteById(id);
+    }
+
+    @Override
+    public void saveAllDistrict(List<DistritoResponse> distritosResponse) {
+        districtRepository.saveAllAndFlush(distritosResponse.stream().map(DistritoResponse::toDistrictEntity).toList());
     }
 }

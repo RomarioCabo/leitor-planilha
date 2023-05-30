@@ -8,7 +8,7 @@ import br.com.planilha.leitorapp.domain.state.StateResponse;
 import br.com.planilha.leitorapp.domain.state.StateService;
 import br.com.planilha.leitorapp.domain.state.exception.StateException;
 import br.com.planilha.leitorapp.domain.state.exception.StateNotFoundException;
-import br.com.planilha.leitorapp.domain.state.json.EstadoResponse;
+import br.com.planilha.leitorapp.domain.client.estado.EstadoResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;

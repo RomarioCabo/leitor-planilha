@@ -2,11 +2,12 @@ package br.com.planilha.leitorapp.domain.provider;
 
 import br.com.planilha.leitorapp.domain.city.CityRequest;
 import br.com.planilha.leitorapp.domain.city.CityResponse;
+import br.com.planilha.leitorapp.domain.client.distrito.DistritoResponse;
 import br.com.planilha.leitorapp.domain.region.RegionRequest;
 import br.com.planilha.leitorapp.domain.region.RegionResponse;
 import br.com.planilha.leitorapp.domain.state.StateRequest;
 import br.com.planilha.leitorapp.domain.state.StateResponse;
-import br.com.planilha.leitorapp.domain.state.json.EstadoResponse;
+import br.com.planilha.leitorapp.domain.client.estado.EstadoResponse;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -42,4 +43,6 @@ public interface PersistenceProvider {
     boolean existsCityById(Long id);
 
     void deleteCityById(Long id);
+
+    void saveAllDistrict(List<DistritoResponse> distritosResponse);
 }

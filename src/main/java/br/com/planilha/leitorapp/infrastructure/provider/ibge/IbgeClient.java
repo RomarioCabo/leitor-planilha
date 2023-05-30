@@ -1,6 +1,7 @@
 package br.com.planilha.leitorapp.infrastructure.provider.ibge;
 
-import br.com.planilha.leitorapp.domain.state.json.EstadoResponse;
+import br.com.planilha.leitorapp.domain.client.distrito.DistritoResponse;
+import br.com.planilha.leitorapp.domain.client.estado.EstadoResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -13,4 +14,7 @@ public interface IbgeClient {
 
     @GetMapping(path = "/api/v1/localidades/estados", produces = APPLICATION_JSON_VALUE)
     List<EstadoResponse> getEstados();
+
+    @GetMapping(path = "/api/v1/localidades/distritos", produces = APPLICATION_JSON_VALUE)
+    List<DistritoResponse> getDistritos();
 }

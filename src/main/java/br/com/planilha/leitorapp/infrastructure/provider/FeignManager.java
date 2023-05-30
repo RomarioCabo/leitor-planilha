@@ -1,7 +1,8 @@
 package br.com.planilha.leitorapp.infrastructure.provider;
 
+import br.com.planilha.leitorapp.domain.client.distrito.DistritoResponse;
 import br.com.planilha.leitorapp.domain.provider.FeignProvider;
-import br.com.planilha.leitorapp.domain.state.json.EstadoResponse;
+import br.com.planilha.leitorapp.domain.client.estado.EstadoResponse;
 import br.com.planilha.leitorapp.infrastructure.provider.ibge.IbgeClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,14 @@ public class FeignManager implements FeignProvider {
         return retryTemplate.execute(callback -> {
             log.debug("Request /IBGE Estados {}", callback.getRetryCount() + 1);
             return ibgeClient.getEstados();
+        });
+    }
+
+    @Override
+    public List<DistritoResponse> getDistritos() {
+        return retryTemplate.execute(callback -> {
+            log.debug("Request /IBGE Distritos {}", callback.getRetryCount() + 1);
+            return ibgeClient.getDistritos();
         });
     }
 }

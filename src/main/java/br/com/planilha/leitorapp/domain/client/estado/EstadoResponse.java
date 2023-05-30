@@ -1,4 +1,4 @@
-package br.com.planilha.leitorapp.domain.state.json;
+package br.com.planilha.leitorapp.domain.client.estado;
 
 import br.com.planilha.leitorapp.infrastructure.persistence.region.RegionEntity;
 import br.com.planilha.leitorapp.infrastructure.persistence.state.StateEntity;
