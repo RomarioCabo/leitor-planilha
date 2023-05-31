@@ -45,4 +45,6 @@ public interface PersistenceProvider {
     void deleteCityById(Long id);
 
     void saveAllDistrict(List<DistritoResponse> distritosResponse);
+
+    void saveAllMicroregions(List<DistritoResponse> distritosResponse);
 }

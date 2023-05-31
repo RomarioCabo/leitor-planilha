@@ -2,6 +2,7 @@ package br.com.planilha.leitorapp.domain.client.distrito;
 
 import br.com.planilha.leitorapp.domain.client.estado.EstadoResponse;
 import br.com.planilha.leitorapp.infrastructure.persistence.district.DistrictEntity;
+import br.com.planilha.leitorapp.infrastructure.persistence.microregion.MicroregionEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -26,6 +27,15 @@ public class DistritoResponse {
                 .ufId(this.getMunicipio().getMicrorregiao().getMesorregiao().getUf().getId())
                 .immediateRegionId(this.getMunicipio().getRegiaoImediata().getId())
                 .intermediateRegionId(this.getMunicipio().getRegiaoImediata().getRegiaoIntermediaria().getId())
+                .build();
+    }
+
+    public MicroregionEntity toMicroregionEntity() {
+        return MicroregionEntity.builder()
+                .id(this.getMunicipio().getMicrorregiao().getId())
+                .name(this.getMunicipio().getMicrorregiao().getNome())
+                .mesoregionId(this.getMunicipio().getMicrorregiao().getMesorregiao().getId())
+                .ufId(this.getMunicipio().getMicrorregiao().getMesorregiao().getUf().getId())
                 .build();
     }
 

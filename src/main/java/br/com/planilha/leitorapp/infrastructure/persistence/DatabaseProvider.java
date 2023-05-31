@@ -12,6 +12,7 @@ import br.com.planilha.leitorapp.domain.client.estado.EstadoResponse;
 import br.com.planilha.leitorapp.infrastructure.persistence.city.CityEntity;
 import br.com.planilha.leitorapp.infrastructure.persistence.city.CityRepository;
 import br.com.planilha.leitorapp.infrastructure.persistence.district.DistrictRepository;
+import br.com.planilha.leitorapp.infrastructure.persistence.microregion.MicroregionRepository;
 import br.com.planilha.leitorapp.infrastructure.persistence.region.RegionEntity;
 import br.com.planilha.leitorapp.infrastructure.persistence.region.RegionRepository;
 import br.com.planilha.leitorapp.infrastructure.persistence.state.StateEntity;
@@ -34,6 +35,7 @@ public class DatabaseProvider implements PersistenceProvider {
     private final StateRepository stateRepository;
     private final CityRepository cityRepository;
     private final DistrictRepository districtRepository;
+    private final MicroregionRepository microregionRepository;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -134,5 +136,10 @@ public class DatabaseProvider implements PersistenceProvider {
     @Override
     public void saveAllDistrict(List<DistritoResponse> distritosResponse) {
         districtRepository.saveAllAndFlush(distritosResponse.stream().map(DistritoResponse::toDistrictEntity).toList());
+    }
+
+    @Override
+    public void saveAllMicroregions(List<DistritoResponse> distritosResponse) {
+        microregionRepository.saveAllAndFlush(distritosResponse.stream().map(DistritoResponse::toMicroregionEntity).toList());
     }
 }
